@@ -10,6 +10,7 @@ router = APIRouter(
 )
 
 
+
 @router.get('/', status_code=status.HTTP_200_OK, response_model=List[schemas.Person])
 def all(db: Session = Depends(database.get_db)):
     return person.get_all(db)
