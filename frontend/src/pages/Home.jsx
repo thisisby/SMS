@@ -7,10 +7,12 @@ import * as api from "../store/api";
 
 const Home = () => {
   const { data } = useQuery("person", api.getPerson);
+
   return (
     <>
-      <h1>Hello world</h1>
-      {data?.map((d) => d.name)}
+      {/* <h1>Hello world</h1>
+      <p></p>
+      {data?.map((d) => d.full_name)} */}
       <Template>
         <StudentTracker students={apish} />
       </Template>
