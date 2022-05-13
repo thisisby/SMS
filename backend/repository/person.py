@@ -6,7 +6,7 @@ import models, schemas
 def get_all(db: Session):
     person = db.query(models.Person).all()
     if not person:
-        return "No created persons"
+        return
     return person
     # print(person)
 

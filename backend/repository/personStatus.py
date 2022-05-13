@@ -5,8 +5,11 @@ import models, schemas
 
 def get_all(db: Session):
     personStatus = db.query(models.PersonStatus).all()
+    # if not personStatus:
+    #     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+    #                         detail=f'No created record')
     if not personStatus:
-        return "No created people"
+        return
     return personStatus
 
 
