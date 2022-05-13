@@ -16,8 +16,11 @@ def get_all(db: Session):
 def create(request: schemas.PersonStatus, db: Session, ):
     personStatus = db.query(models.PersonStatus).filter(
         models.PersonStatus.full_name == request.full_name).first()
-    if personStatus.leave and not personStatus.come:
-        return "Person is already exist"
+    if personStatus:
+        if personStatus.leave and not personStatus.come:
+            return "Person is already exist"
+        if personStatus.status == "On":
+            pass
     new_personStatus = models.PersonStatus(role=request.role, card_id=request.card_id, full_name=request.full_name, phone_number=request.phone_number, leave = request.leave, status=request.status)
     db.add(new_personStatus)
     db.commit()
