@@ -6,8 +6,7 @@ import models, schemas
 def get_all(db: Session):
     person = db.query(models.Person).all()
     if not person:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'No created record')
+        return "No created persons"
     return person
     # print(person)
 
