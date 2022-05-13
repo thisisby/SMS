@@ -6,8 +6,7 @@ import models, schemas
 def get_all(db: Session):
     personStatus = db.query(models.PersonStatus).all()
     if not personStatus:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'No created record')
+        return "No created people"
     return personStatus
 
 
@@ -16,8 +15,7 @@ def create(request: schemas.PersonStatus, db: Session, ):
         models.PersonStatus.full_name == request.full_name).first()
     if personStatus:
         if personStatus.leave and not personStatus.come:
-            raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE,
-                                detail="Not acceptable")
+            return "Person is already exist"
     new_personStatus = models.PersonStatus(role=request.role, card_id=request.card_id, full_name=request.full_name, phone_number=request.phone_number, leave = request.leave, status=request.status)
     db.add(new_personStatus)
     db.commit()
