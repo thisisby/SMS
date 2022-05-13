@@ -1,11 +1,33 @@
 import React, { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
+import * as api from "../../store/api";
 
 const StudentTrackerItem = ({ student }) => {
-  const { full_name, role, phone_number, leave, come, status } = student;
-
+  const { id, full_name, role, phone_number, leave, come, status } = student;
+  const { mutateAsync } = useMutation(api.updatePersonStatus);
+  const queryClient = useQueryClient();
   const [isOpen, setIsOpen] = useState(false);
   const openHandler = () => {
     setIsOpen(!isOpen);
+  };
+
+  const updatePersonStatus = async (id, student) => {
+    console.log(student);
+    let date = new Date();
+    let options = {
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+    let currentTime = date.toLocaleTimeString("en-us", options);
+    const updatedPersonStatus = {
+      ...student,
+      come: currentTime,
+      status: "On",
+    };
+    await mutateAsync({ ...updatedPersonStatus, id });
+    queryClient.invalidateQueries("personStatus");
   };
 
   return (
@@ -20,7 +42,10 @@ const StudentTrackerItem = ({ student }) => {
         <h3 className="hidden md:block">{leave}</h3>
         <h3 className="hidden md:block">
           {come === null ? (
-            <button className="w-max text-left">
+            <button
+              onClick={() => updatePersonStatus(id, student)}
+              className="w-max text-left"
+            >
               <span className="bg-blue px-3 py-2 rounded-full ml-6">+</span>
             </button>
           ) : (
@@ -31,7 +56,9 @@ const StudentTrackerItem = ({ student }) => {
           {status === "On" ? (
             <span className="bg-[#92efbf] rounded-full px-4 py-2">On Camp</span>
           ) : (
-            <span className="bg-[#f19f9f] rounded-full px-4 py-2">Off Camp</span>
+            <span className="bg-[#f19f9f] rounded-full px-4 py-2">
+              Off Camp
+            </span>
           )}
         </h3>
       </div>

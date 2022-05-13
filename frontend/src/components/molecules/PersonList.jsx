@@ -7,9 +7,7 @@ import * as api from "../../store/api";
 const PersonList = () => {
   const { data } = useQuery("person", api.getPerson);
   const queryClient = useQueryClient();
-  const { mutateAsync, isLoading, isSuccess } = useMutation(
-    api.createPersonStatus
-  );
+  const { mutateAsync } = useMutation(api.createPersonStatus);
 
   const { showMenu, showMenuHandler } = useContext(State);
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useQuery } from "react-query";
 import Template from "../components/templates/Template";
 import StudentTracker from "../components/molecules/StudentTracker";
