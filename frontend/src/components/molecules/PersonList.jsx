@@ -1,17 +1,19 @@
 import React, { useContext } from "react";
 
 import { State } from "../../store/state";
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import * as api from "../../store/api";
 
 const PersonList = () => {
   const { data } = useQuery("person", api.getPerson);
-  const { mutate, isSuccess } = useMutation(api.createPersonStatus);
+  const queryClient = useQueryClient();
+  const { mutateAsync, isLoading, isSuccess } = useMutation(
+    api.createPersonStatus
+  );
 
   const { showMenu, showMenuHandler } = useContext(State);
 
-  const AddPersonStatus = (person) => {
-    console.log(person);
+  const AddPersonStatus = async (person) => {
     let date = new Date();
     let options = {
       month: "short",
@@ -24,13 +26,14 @@ const PersonList = () => {
       ...person,
       come: "",
       leave: currentTime,
-      status: "On",
+      status: "Off",
     };
-    mutate(newPersonStatus);
+    await mutateAsync(newPersonStatus);
+    queryClient.invalidateQueries("personStatus");
   };
   return (
     <div
-      className={`w-[20rem] bg-white duration-500 ease-in-out fixed top-0 shadow-md ${
+      className={`w-[20rem] bg-white duration-300 ease-in-out fixed top-0 shadow-md ${
         showMenu ? "left-0" : "-left-full"
       } h-screen`}
     >
