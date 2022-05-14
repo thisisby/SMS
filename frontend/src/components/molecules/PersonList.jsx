@@ -4,14 +4,19 @@ import { State } from "../../store/state";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import * as api from "../../store/api";
 
+import SearchBar from "./SearchBar";
+
 const PersonList = () => {
   const { data } = useQuery("person", api.getPerson);
   const queryClient = useQueryClient();
   const { mutateAsync } = useMutation(api.createPersonStatus);
 
-  const { showMenu, showMenuHandler } = useContext(State);
+  const { showMenu, showMenuHandler, searchPerson, setSearchPerson } =
+    useContext(State);
 
   const AddPersonStatus = async (person) => {
+    showMenuHandler();
+    setSearchPerson("");
     let date = new Date();
     let options = {
       month: "short",
@@ -28,7 +33,6 @@ const PersonList = () => {
     };
     await mutateAsync(newPersonStatus);
     queryClient.invalidateQueries("personStatus");
-    showMenuHandler();
   };
   return (
     <div
@@ -42,17 +46,31 @@ const PersonList = () => {
       >
         X
       </button>
-      <h1 className="mb-10 py-6 px-5 text-xl">Select a student</h1>
+      <h1 className="mb-3 py-6 px-5 text-xl">Select a student</h1>
+      <div className="px-5 mb-6">
+        <SearchBar type="person" />
+      </div>
       <div>
-        {data?.map((person, index) => (
-          <button
-            onClick={() => AddPersonStatus(person)}
-            key={person.id}
-            className="block w-full text-left px-4 py-4 duration-300 hover:bg-[#f6f6f6] capitalize"
-          >
-            {index + 1 + ". " + person.full_name}
-          </button>
-        ))}
+        {data
+          ?.filter((val) => {
+            if (searchPerson === "") {
+              return val;
+            } else if (
+              val.full_name.toLowerCase().includes(searchPerson.toLowerCase())
+            ) {
+              return val;
+            }
+            return false;
+          })
+          .map((person, index) => (
+            <button
+              onClick={() => AddPersonStatus(person)}
+              key={person.id}
+              className="block w-full text-left px-4 py-4 duration-300 hover:bg-[#f6f6f6] capitalize"
+            >
+              {index + 1 + ". " + person.full_name}
+            </button>
+          ))}
       </div>
     </div>
   );

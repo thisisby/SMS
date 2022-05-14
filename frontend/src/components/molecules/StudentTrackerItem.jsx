@@ -7,6 +7,7 @@ const StudentTrackerItem = ({ student }) => {
   const { mutateAsync } = useMutation(api.updatePersonStatus);
   const queryClient = useQueryClient();
   const [isOpen, setIsOpen] = useState(false);
+
   const openHandler = () => {
     setIsOpen(!isOpen);
   };

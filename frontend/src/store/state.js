@@ -5,6 +5,7 @@ export const State = createContext();
 export const ContextProvider = ({ children }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchPerson, setSearchPerson] = useState("");
   const { pathname } = useLocation();
 
   const showMenuHandler = () => {
@@ -24,6 +25,8 @@ export const ContextProvider = ({ children }) => {
         showMenuHandler,
         searchTerm,
         setSearchTerm,
+        searchPerson,
+        setSearchPerson,
       }}
     >
       {children}

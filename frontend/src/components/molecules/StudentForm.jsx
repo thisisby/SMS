@@ -20,7 +20,7 @@ const StudentForm = () => {
     initialValues: {
       full_name: "",
       card_id: "",
-      phone_number: 0,
+      phone_number: "",
       role: "Student",
     },
     validationSchema: Yup.object({
@@ -116,7 +116,10 @@ const StudentForm = () => {
         </select>
       </div>
       <div className="mb-5 md:col-span-2">
-        <button type="submit" className="px-4 py-4 bg-green rounded w-full">
+        <button
+          type="submit"
+          className="px-4 py-4 bg-green rounded w-full duration-300 hover:bg-[#92efbf]"
+        >
           Submit
         </button>
       </div>
