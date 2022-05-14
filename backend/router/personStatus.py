@@ -27,7 +27,7 @@ def create(request: schemas.PersonStatus, db: Session = Depends(database.get_db)
 
 
 @router.put('/{id}', status_code=status.HTTP_202_ACCEPTED)
-def update(id, request: schemas.PersonStatus, db: Session = Depends(database.get_db),
+def update(id, request: schemas.PersonStatusShow, db: Session = Depends(database.get_db),
            ):
     return personStatus.update(id, request, db)
 
