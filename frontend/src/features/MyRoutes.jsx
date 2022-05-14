@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import CreateStudent from "../pages/CreateStudent";
 
+import CreateStudent from "../pages/CreateStudent";
 import Home from "../pages/Home";
 import OffCamp from "../pages/OffCamp";
 import OnCamp from "../pages/OnCamp";

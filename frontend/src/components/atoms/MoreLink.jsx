@@ -14,7 +14,7 @@ const MoreLink = () => {
         <div
           className={`${
             open ? "visible" : "invisible"
-          } absolute -bottom-20 lg:-bottom-24 -left-20 flex flex-col items-start bg-white shadow-md py-2 px-4 md:px-6 rounded w-max`}
+          } absolute -bottom-20 lg:-bottom-24 -left-20 flex flex-col items-start bg-white shadow-md py-2 px-4 md:px-6 rounded w-max z-10`}
         >
           <Link to="/create">Add Student</Link>
           <Link to="/">Logout</Link>

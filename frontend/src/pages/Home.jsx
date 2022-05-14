@@ -22,7 +22,7 @@ const Home = () => {
         {data != null ? (
           <StudentTracker students={data} />
         ) : (
-          "No students left campus"
+          "Today no one went out"
         )}
       </Template>
     </>

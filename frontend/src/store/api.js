@@ -4,7 +4,11 @@ const api = axios.create({
   baseURL: "http://localhost:8000",
 });
 
-// Person
+// ------------------
+//  _Person Table_
+// ------------------
+
+// Get person
 export const getPerson = async () => {
   try {
     const response = await api.get("/person");
@@ -14,9 +18,20 @@ export const getPerson = async () => {
   }
 };
 
-//  _Person Status_
+// Create Person
+export const createPerson = async (person) => {
+  try {
+    await api.post("/person", person);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-// Get personStatus data
+// ------------------
+//  _PersonStatus Table_
+// ------------------
+
+// Get personStatus
 export const getPersonStatus = async () => {
   try {
     const response = await api.get("/personStatus");
@@ -26,22 +41,19 @@ export const getPersonStatus = async () => {
   }
 };
 
-// Create personStatus data
+// Create personStatus
 export const createPersonStatus = async (person) => {
   try {
-    const response = await api.post("/personStatus", person);
+    await api.post("/personStatus", person);
   } catch (err) {
     console.log(err);
   }
 };
 
-// Update personStatus data
+// Update personStatus
 export const updatePersonStatus = async ({ id, ...person }) => {
-  console.log("COMMING VALUES:");
-  console.log(id);
-  console.log(person);
   try {
-    const response = await api.put(`/personStatus/${id}`, person);
+    await api.put(`/personStatus/${id}`, person);
   } catch (err) {
     console.log(err);
   }

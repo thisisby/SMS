@@ -12,7 +12,6 @@ const StudentTrackerItem = ({ student }) => {
   };
 
   const updatePersonStatus = async (id, student) => {
-    console.log(student);
     let date = new Date();
     let options = {
       month: "short",
@@ -80,7 +79,10 @@ const StudentTrackerItem = ({ student }) => {
             <span className="font-bold mr-2">Come:</span>
             <span>
               {come === null ? (
-                <button className="w-max text-left">
+                <button
+                  onClick={() => updatePersonStatus(id, student)}
+                  className="w-max text-left"
+                >
                   <span className="bg-blue px-3 py-2 rounded-full">+</span>
                 </button>
               ) : (
